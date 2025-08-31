@@ -36,7 +36,7 @@ while True:
 
     # রঙের সাথে ক্রমিক লাইন আউটপুট
     print(f"{lgn}1{lrd}  {gn}Report Channel{lrd}")
-    print(f"{lgn}2{lrd}  {gn}Report Channel{lrd}")
+    print(f"{lgn}2{lrd}  {gn}Report bot{lrd}")
 
     number = input(f"{gn}Enter Number : {cn}")
     if number == "1":
