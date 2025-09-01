@@ -16,7 +16,7 @@ RESET = '\033[0m'
 API_ID = 26108693
 API_HASH = "3bc54f318fb35b9d82c3f885f18e7028"
 BOT_TOKEN = "7676428723:AAECtBRnxX41kSkiZev5UdX_2X63eVP-fMY"
-ADMIN_ID = "8260515175"
+ADMIN_ID = "8038375045"
 TARGET_USERNAME = "@owner_96_team"
 
 # ---------------- Banner ----------------
